@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.doodlegrid.com/DoodleGrid/Schema"
+	xmlns:tns="http://www.doodlegrid.com/DoodleGrid/Schema"
+	elementFormDefault="qualified">
+
+	<element name="DoodleGrid" type="tns:Grid"></element>
+
+	<complexType name="Grid">
+		<sequence>
+			<element name="GridItems" type="string" minOccurs="1" maxOccurs="1">
+			<annotation>
+				<documentation>
+					This is a string representing the grid of colors.  Rows are delimited by '|' and Columns are delimited by ','
+				</documentation>
+			</annotation>			
+			</element>
+		</sequence>
+		<attribute name="Size" type="int">
+			<annotation>
+				<documentation>
+					The Number of Rows/Columns of the Grid
+				</documentation>
+			</annotation>
+		</attribute>
+		<attribute name="Scale" type="int">
+			<annotation>
+				<documentation>
+					The scale of the grid. This is an integer from 1 to
+					Size/2 that determines how much of the grid is to be
+					displayed (1 is entire Grid, Size/2 would be the
+					inner 2x2 GridItems)
+				</documentation>
+			</annotation>
+		</attribute>
+	</complexType>
+</schema>

@@ -1,0 +1,145 @@
+@CHARSET "ISO-8859-1";
+body {
+  font-family: Verdana, Geneva, Arial, helvetica, sans-serif;
+}
+
+h1 {
+	font-size: 17px;
+}
+
+h2 {
+	font-size: 15px;
+}
+
+#header{
+	border-bottom: 1px solid #CCCCCC;
+	width: 100%;		
+}
+
+#outer {
+	width: 640px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;	
+}
+
+#main_col{
+	height: 100%;	
+	float: left;
+	width: 420px;	
+}
+
+#main {
+}
+
+#box_section {
+	position: relative;
+}
+
+#notes_col{
+	height: auto;	
+	padding: 8px;
+	padding-bottom: 40px;
+	background-color: #EEEEEE;
+	border: 1px solid #CCCCCC;
+	float: right;
+	width: 180px; 	
+}
+
+#horizontal_nav {
+	height: 30px;
+	width: 100%;
+	border-top: solid #AAAAAA 1px;
+	border-bottom: solid #AAAAAA 1px;
+	background-color: #669933;
+	border-spacing: 0px;
+}
+
+#horizontal_nav ul {
+	margin: 0px;
+	padding: 0px;
+	line-height: 30px;
+	white-space: nowrap;
+}
+
+#horizontal_nav li {
+	list-style-type: none;
+	display: inline;
+	padding: 7px 10px;	
+}
+
+#footer{
+	border-top: 1px solid #CCCCCC;
+	width: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color: #888888;
+	clear: both;
+
+	/* the following 4 settings are a kluge as this element doesn't take its parent 
+	   properties seemingly cuz a sibling has absolute positioning */
+	text-align:left;
+	width:640px;
+	margin-right:auto;
+	margin-left:auto;
+	/* position: relative; */
+	margin-top: 30px;	
+}
+
+.main_col_section_envelope {
+	top: 5px; 
+	left: 5px;
+  	padding-top: 32px; 	
+}
+
+.main_col_section_content_ex {
+	/*position: relative;*/
+  	padding-top: 10px; 
+}
+
+.shadow{
+	background-color: #BBBBBB; /*shadow color*/
+	color: inherit;
+	margin-left: 4px;
+	margin-top: 4px;
+	position: relative;	
+}
+
+.section{
+	bottom: 4px;
+	right: 4px;
+    font-size: 14px;	
+	border: 1px solid #999999;	
+	position: relative;	
+}
+
+.section_title {
+	height: 17px;
+	background-color: #669933;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 3px 3px;
+	font-size: 11px;
+	color: #FFF;
+}
+
+.content{
+	background-color: #fff; /*background color of content*/
+	color: #000; /*text color of content*/
+	padding: 5px 8px;
+}
+
+.footnote{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color: #555555;
+}
+
+.nav_link {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+	font-weight: bold;
+	color: #FFF;
+	text-decoration: none;
+}
+
+

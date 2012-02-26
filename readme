@@ -1,0 +1,7 @@
+Web app to demonstrate "push" based synchronization between
+browsers and servers. 
+
+The application is a shared grid represented via a set of 
+div's on the browser.  When a particular region of the grid
+is updated by one client, all clients receive the update as 
+a push event from the server.

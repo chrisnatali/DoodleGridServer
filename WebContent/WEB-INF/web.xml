@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>DoodleGridServer</display-name>
+ 	
+	<servlet>
+		<description>
+		Servlet responsbile for full doodle grid requests</description>
+		<display-name>
+		GetDoodleGrid</display-name>
+		<servlet-name>GetGridServlet</servlet-name>
+		<servlet-class>
+		com.doodlegrid.GetGridServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		GridItemUpdateServlet</display-name>
+		<servlet-name>GridItemUpdateServlet</servlet-name>
+		<servlet-class>
+		com.doodlegrid.GridItemUpdateServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		Parent Servlet for all DoodleGrid handling servlets</description>
+		<display-name>
+		DGServlet</display-name>
+		<servlet-name>DGServlet</servlet-name>
+		<servlet-class>
+		com.doodlegrid.DGServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>Servlet used for javascript shell interaction
+		</description>
+		<display-name>
+		JSShellServlet</display-name>
+		<servlet-name>JSShellServlet</servlet-name>
+		<servlet-class>
+		com.doodlegrid.JSShellServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetGridServlet</servlet-name>
+		<url-pattern>/GetGridServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GridItemUpdateServlet</servlet-name>
+		<url-pattern>/GridItemUpdateServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DGServlet</servlet-name>
+		<url-pattern>/DGServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JSShellServlet</servlet-name>
+		<url-pattern>/JSShellServlet</url-pattern>
+	</servlet-mapping>
+    <listener>
+		<listener-class>com.doodlegrid.DGContextListener</listener-class>
+    </listener> 	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

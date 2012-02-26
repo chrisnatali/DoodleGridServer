@@ -1,0 +1,417 @@
+;; Object WebContent/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "WebContent/"
+  :tables (list 
+   (semanticdb-table "DoodleGrid.html"
+    :major-mode 'html-mode
+    :tags '(("Survey" section nil nil [178 268]) ("/*
+      * Validate.js requires us to define styles for the \"invalid\" class to give
+      * invalid fields a distinct visual appearance that the user will recognize.
+      * We can optionally define styles for valid fields as well.
+      */
+      input.invalid { background: #faa; } /* Reddish background for invalid fields */
+      input.valid { background: #afa; }   /* Greenish background for valid fields */" section nil nil [268 327]) ("/*
+      * Validate.js requires us to define styles for the \"invalid\" class to give
+      * invalid fields a distinct visual appearance that the user will recognize.
+      * We can optionally define styles for valid fields as well.
+      */
+      input.invalid { background: #faa; } /* Reddish background for invalid fields */
+      input.valid { background: #afa; }   /* Greenish background for valid fields */" section nil nil [327 388]) ("/*
+      * Validate.js requires us to define styles for the \"invalid\" class to give
+      * invalid fields a distinct visual appearance that the user will recognize.
+      * We can optionally define styles for valid fields as well.
+      */
+      input.invalid { background: #faa; } /* Reddish background for invalid fields */
+      input.valid { background: #afa; }   /* Greenish background for valid fields */" section nil nil [388 449]) ("/*
+      * Validate.js requires us to define styles for the \"invalid\" class to give
+      * invalid fields a distinct visual appearance that the user will recognize.
+      * We can optionally define styles for valid fields as well.
+      */
+      input.invalid { background: #faa; } /* Reddish background for invalid fields */
+      input.valid { background: #afa; }   /* Greenish background for valid fields */" section nil nil [449 511]) ("/*
+      * Validate.js requires us to define styles for the \"invalid\" class to give
+      * invalid fields a distinct visual appearance that the user will recognize.
+      * We can optionally define styles for valid fields as well.
+      */
+      input.invalid { background: #faa; } /* Reddish background for invalid fields */
+      input.valid { background: #afa; }   /* Greenish background for valid fields */" section nil nil [511 576]) ("/*
+      * Validate.js requires us to define styles for the \"invalid\" class to give
+      * invalid fields a distinct visual appearance that the user will recognize.
+      * We can optionally define styles for valid fields as well.
+      */
+      input.invalid { background: #faa; } /* Reddish background for invalid fields */
+      input.valid { background: #afa; }   /* Greenish background for valid fields */" section nil nil [576 1082]) ("function load() {
+      Controller.set_remote_url(\"cgi-bin/data_synk.cgi\");
+      }
+
+
+      //TESTING CODE AREA
+      debug_toggle = 0; 
+
+      //use the div as an output area
+      msg_div = document.getElementById(\"box_section\");
+
+      query_update_div = function() {
+          var query = '_entity=**';
+          var result = Controller.local_query_str(query);
+          msg_div.innerHTML = result;
+          Controller._update_listener = 0;
+      }
+
+      document.onkeypress = function(event, element) {
+          var keyCode = event.keyCode ? event.keyCode : event.charCode;
+          var charForCode = String.fromCharCode(keyCode);
+          if(charForCode == \"\\\") {
+                  debug_toggle = (!debug_toggle);
+                  msg_div.innerHTML = \"debug: \" + debug_toggle;
+          }
+          else if(debug_toggle && charForCode == \"?\") {
+                //perform local query
+                var query_local = document.getElementById(\"query_local\");
+                var value = query_local.value;
+                var result = Controller.local_query_str(value);
+                msg_div.innerHTML = result;                
+          }
+          else if(debug_toggle && charForCode == \">\") {
+                //perform remote query
+                var query_remote = document.getElementById(\"query_remote\");
+                var value = query_remote.value;
+                var result = Controller.remote_query(value);
+                Controller._update_listener = query_update_div;
+          }
+          return false;
+        }" section nil nil [1082 2837]) ("Survey Management Site" section (:members (("Survey Management Site" section (:members (("Create Users" section nil nil [3477 3705]) ("Test Area" section nil nil [3705 3708]))) nil [2913 2916]))) nil [2837 2843]))
+    :file "DoodleGrid.html"
+    :pointmax 1966
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "SyncTest.html"
+    :major-mode 'html-mode
+    :tags '(("Sync Manager Test" section nil nil [169 209]) ("//<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText(\"GetClientIDServlet\", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, \"SyncSubscribeServlet\", \"SyncPublishServlet\", \"SyncUnsubscribeServlet\");
+		SyncMgr.addChannel(\"Channels\", \"\", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById(\"subscribedChannels\");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = \"name: \" + name + \" sub channel: \" + subChannelName + \" sync id: \" + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + \"<br>\";
+	    }
+	}
+	        	
+    
+    //data is a \"$\" delim'd list of <channel>\",\"<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split(\"$\");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName(\"channelList\");
+		var allChannels = document.getElementById(\"allChannels\");
+		allChannels.innerHTML = \"\";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + \"<br>\";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById(\"publishedData\");
+    	publishedData.innerHTML += data + \"<br>\";
+    }
+
+    //]]>" section nil nil [209 279]) ("//<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText(\"GetClientIDServlet\", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, \"SyncSubscribeServlet\", \"SyncPublishServlet\", \"SyncUnsubscribeServlet\");
+		SyncMgr.addChannel(\"Channels\", \"\", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById(\"subscribedChannels\");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = \"name: \" + name + \" sub channel: \" + subChannelName + \" sync id: \" + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + \"<br>\";
+	    }
+	}
+	        	
+    
+    //data is a \"$\" delim'd list of <channel>\",\"<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split(\"$\");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName(\"channelList\");
+		var allChannels = document.getElementById(\"allChannels\");
+		allChannels.innerHTML = \"\";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + \"<br>\";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById(\"publishedData\");
+    	publishedData.innerHTML += data + \"<br>\";
+    }
+
+    //]]>" section nil nil [279 356]) ("//<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText(\"GetClientIDServlet\", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, \"SyncSubscribeServlet\", \"SyncPublishServlet\", \"SyncUnsubscribeServlet\");
+		SyncMgr.addChannel(\"Channels\", \"\", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById(\"subscribedChannels\");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = \"name: \" + name + \" sub channel: \" + subChannelName + \" sync id: \" + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + \"<br>\";
+	    }
+	}
+	        	
+    
+    //data is a \"$\" delim'd list of <channel>\",\"<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split(\"$\");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName(\"channelList\");
+		var allChannels = document.getElementById(\"allChannels\");
+		allChannels.innerHTML = \"\";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + \"<br>\";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById(\"publishedData\");
+    	publishedData.innerHTML += data + \"<br>\";
+    }
+
+    //]]>" section nil nil [356 439]) ("//<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText(\"GetClientIDServlet\", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, \"SyncSubscribeServlet\", \"SyncPublishServlet\", \"SyncUnsubscribeServlet\");
+		SyncMgr.addChannel(\"Channels\", \"\", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById(\"subscribedChannels\");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = \"name: \" + name + \" sub channel: \" + subChannelName + \" sync id: \" + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + \"<br>\";
+	    }
+	}
+	        	
+    
+    //data is a \"$\" delim'd list of <channel>\",\"<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split(\"$\");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName(\"channelList\");
+		var allChannels = document.getElementById(\"allChannels\");
+		allChannels.innerHTML = \"\";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + \"<br>\";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById(\"publishedData\");
+    	publishedData.innerHTML += data + \"<br>\";
+    }
+
+    //]]>" section nil nil [439 3282]) ("Subscribe <input type=\"text\" name=\"subscribeChannel\" onchange=\"onSubscribe(this.value);\"><br>
+  			Unsubscribe <input type=\"text\" name=\"unsubscribeChannel\" onFocus=\"onUnsubscribe(this.value);\"><br>  			
+		    Channels <select name=\"channelList\"/><br>	
+  			Publish <input type=\"text\" name=\"publishChannel\" onFocus=\"onPublish(this.value);\">" section nil nil [3282 3288]))
+    :file "SyncTest.html"
+    :pointmax 3800
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre3"
+  :semanticdb-version "2.0pre3"
+  )

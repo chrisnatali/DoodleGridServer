@@ -1,0 +1,405 @@
+;; Object WebContent/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "WebContent/"
+  :tables (list 
+   (semanticdb-table "DoodleGrid.html"
+    :major-mode 'html-mode
+    :tags '(("Boxing Test" section nil nil [169 262]) ("//<![CDATA[
+
+
+    function load() {
+		//alert(\"loading DGMgr\");
+    	DGMgr.init(document.getElementById(\"box_section\"));
+    	DGMgr.setDebug(true);
+    }
+    
+    function updateGrid() {
+    	DGMgr.getCurrentGrid();
+    }
+
+    //]]>" section nil nil [262 332]) ("//<![CDATA[
+
+
+    function load() {
+		//alert(\"loading DGMgr\");
+    	DGMgr.init(document.getElementById(\"box_section\"));
+    	DGMgr.setDebug(true);
+    }
+    
+    function updateGrid() {
+    	DGMgr.getCurrentGrid();
+    }
+
+    //]]>" section nil nil [332 409]) ("//<![CDATA[
+
+
+    function load() {
+		//alert(\"loading DGMgr\");
+    	DGMgr.init(document.getElementById(\"box_section\"));
+    	DGMgr.setDebug(true);
+    }
+    
+    function updateGrid() {
+    	DGMgr.getCurrentGrid();
+    }
+
+    //]]>" section nil nil [409 477]) ("//<![CDATA[
+
+
+    function load() {
+		//alert(\"loading DGMgr\");
+    	DGMgr.init(document.getElementById(\"box_section\"));
+    	DGMgr.setDebug(true);
+    }
+    
+    function updateGrid() {
+    	DGMgr.getCurrentGrid();
+    }
+
+    //]]>" section nil nil [477 559]) ("//<![CDATA[
+
+
+    function load() {
+		//alert(\"loading DGMgr\");
+    	DGMgr.init(document.getElementById(\"box_section\"));
+    	DGMgr.setDebug(true);
+    }
+    
+    function updateGrid() {
+    	DGMgr.getCurrentGrid();
+    }
+
+    //]]>" section nil nil [559 999]) ("Home" section nil nil [999 1005]))
+    :file "DoodleGrid.html"
+    :pointmax 1966
+    )
+   (semanticdb-table "SyncTest.html"
+    :major-mode 'html-mode
+    :tags '(("Sync Manager Test" section nil nil [169 209]) ("//<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText(\"GetClientIDServlet\", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, \"SyncSubscribeServlet\", \"SyncPublishServlet\", \"SyncUnsubscribeServlet\");
+		SyncMgr.addChannel(\"Channels\", \"\", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById(\"subscribedChannels\");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = \"name: \" + name + \" sub channel: \" + subChannelName + \" sync id: \" + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + \"<br>\";
+	    }
+	}
+	        	
+    
+    //data is a \"$\" delim'd list of <channel>\",\"<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split(\"$\");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName(\"channelList\");
+		var allChannels = document.getElementById(\"allChannels\");
+		allChannels.innerHTML = \"\";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + \"<br>\";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById(\"publishedData\");
+    	publishedData.innerHTML += data + \"<br>\";
+    }
+
+    //]]>" section nil nil [209 279]) ("//<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText(\"GetClientIDServlet\", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, \"SyncSubscribeServlet\", \"SyncPublishServlet\", \"SyncUnsubscribeServlet\");
+		SyncMgr.addChannel(\"Channels\", \"\", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById(\"subscribedChannels\");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = \"name: \" + name + \" sub channel: \" + subChannelName + \" sync id: \" + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + \"<br>\";
+	    }
+	}
+	        	
+    
+    //data is a \"$\" delim'd list of <channel>\",\"<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split(\"$\");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName(\"channelList\");
+		var allChannels = document.getElementById(\"allChannels\");
+		allChannels.innerHTML = \"\";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + \"<br>\";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById(\"publishedData\");
+    	publishedData.innerHTML += data + \"<br>\";
+    }
+
+    //]]>" section nil nil [279 356]) ("//<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText(\"GetClientIDServlet\", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, \"SyncSubscribeServlet\", \"SyncPublishServlet\", \"SyncUnsubscribeServlet\");
+		SyncMgr.addChannel(\"Channels\", \"\", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById(\"subscribedChannels\");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = \"name: \" + name + \" sub channel: \" + subChannelName + \" sync id: \" + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + \"<br>\";
+	    }
+	}
+	        	
+    
+    //data is a \"$\" delim'd list of <channel>\",\"<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split(\"$\");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName(\"channelList\");
+		var allChannels = document.getElementById(\"allChannels\");
+		allChannels.innerHTML = \"\";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + \"<br>\";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById(\"publishedData\");
+    	publishedData.innerHTML += data + \"<br>\";
+    }
+
+    //]]>" section nil nil [356 439]) ("//<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText(\"GetClientIDServlet\", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, \"SyncSubscribeServlet\", \"SyncPublishServlet\", \"SyncUnsubscribeServlet\");
+		SyncMgr.addChannel(\"Channels\", \"\", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(\",\");
+    	var subChannel = \"\";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById(\"subscribedChannels\");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = \"name: \" + name + \" sub channel: \" + subChannelName + \" sync id: \" + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + \"<br>\";
+	    }
+	}
+	        	
+    
+    //data is a \"$\" delim'd list of <channel>\",\"<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split(\"$\");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName(\"channelList\");
+		var allChannels = document.getElementById(\"allChannels\");
+		allChannels.innerHTML = \"\";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + \"<br>\";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById(\"publishedData\");
+    	publishedData.innerHTML += data + \"<br>\";
+    }
+
+    //]]>" section nil nil [439 3282]) ("Subscribe <input type=\"text\" name=\"subscribeChannel\" onchange=\"onSubscribe(this.value);\"><br>
+  			Unsubscribe <input type=\"text\" name=\"unsubscribeChannel\" onFocus=\"onUnsubscribe(this.value);\"><br>  			
+		    Channels <select name=\"channelList\"/><br>	
+  			Publish <input type=\"text\" name=\"publishChannel\" onFocus=\"onPublish(this.value);\">" section nil nil [3282 3288]))
+    :file "SyncTest.html"
+    :pointmax 3800
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre3"
+  :semanticdb-version "2.0pre3"
+  )

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Sync Manager Test</title>			
+    <script src="javascript/HTTP.js" type="text/javascript"></script>
+    <script src="javascript/Common.js" type="text/javascript"></script>    	
+    <script src="javascript/SyncMgr.js" type="text/javascript"></script>	            
+	<script type="text/javascript">
+    //<![CDATA[
+
+
+	//steps
+	//1.  load (makes call to get clientID)
+	//2.  setClientID (async called when clientID returned)
+	//3.  initSync (sets up sync manager) and starts subscribe loop
+    function load() {
+
+		//get the clientID
+		HTTP.getText("GetClientIDServlet", initSync);
+
+    }
+    
+    function initSync(clientID) {
+    	SyncMgr.init(clientID, "SyncSubscribeServlet", "SyncPublishServlet", "SyncUnsubscribeServlet");
+		SyncMgr.addChannel("Channels", "", channelUpdateHandler)
+		SyncMgr.subscribe();
+    }
+    
+    //add/subscribe to a new channel
+    function onSubscribe(channel) {
+    	var channelPair = channel.split(",");
+    	var subChannel = "";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.addChannel(channel, subChannel, publicationHandler);
+    	updateSubscribedDiv();
+    }
+    
+    //unsubscribe from a channel
+    function onUnSubscribe(channel) {
+    	var channelPair = channel.split(",");
+    	var subChannel = "";
+    	if(channelPair.length == 2) {
+    		channel = channelPair[0];
+    		subChannel = channelPair[1];
+    	}
+    	SyncMgr.removeChannel(channel, subChannel);
+    	updateSubscribedDiv();
+    }    
+    	
+    //update the subscribed to channels div    	
+    function updateSubscribedDiv() {
+    	var subscribedChannels = document.getElementById("subscribedChannels");
+    	for(key in SyncMgr.channels) {
+    		var name = SyncMgr.channels[key].name;
+    		var subChannelName = SyncMgr.channels[key].subChannel;
+    		var syncID = SyncMgr.channels[key].syncID;		    		
+			var channelInfo = "name: " + name + " sub channel: " + subChannelName + " sync id: " + syncID;			  		
+	    	subscribedChannels.innerHTML += channelInfo + "<br>";
+	    }
+	}
+	        	
+    
+    //data is a "$" delim'd list of <channel>","<subchannel> pairs
+    function channelUpdateHandler(data) {
+		var channels = data.split("$");
+		//update the channelList and allChannels div
+		var channelList = document.getElementByName("channelList");
+		var allChannels = document.getElementById("allChannels");
+		allChannels.innerHTML = "";
+		channelList.options.length = 0;
+		for(var i = 0; i < channels.length; i++) {
+			var channelPair = channels[i];
+			var opt = new Option(channelPair, channelPair);
+			channelList.options[channelList.options.length] = opt;
+			allChannels.innerHTML += channelPair + "<br>";
+		}		
+    }
+    
+    //just output the raw data received to the publishedData div
+    function publicationHandler(data) {
+    	var publishedData = document.getElementById("publishedData");
+    	publishedData.innerHTML += data + "<br>";
+    }
+
+    //]]> 
+		</script>				
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	</head>
+	<!-- todo:  let GWT figure out how to register keydown events -->
+	<body onload="load();">
+		<div id="outer">
+  			Subscribe <input type="text" name="subscribeChannel" onchange="onSubscribe(this.value);"><br>
+  			Unsubscribe <input type="text" name="unsubscribeChannel" onFocus="onUnsubscribe(this.value);"><br>  			
+		    Channels <select name="channelList"/><br>	
+  			Publish <input type="text" name="publishChannel" onFocus="onPublish(this.value);">  					    		
+		</div>
+		<div id="publishedData"/>			
+		<div id="subscribedChannels"/>
+		<div id="allChannels"/>	
+	</body>
+</html>

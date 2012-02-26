@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="DoodleGrid">
+    <!-- properties -->
+    <property name="dist" value="dist"/>
+    <property name="schema" value="schema"/>      
+    <property name="build.property.file" value="build.properties"/>
+   
+    <available file="${build.property.file}" type="file" property="build.properties.present"/>
+    <fail message="missing property file [ ${build.property.file} ]" unless="build.properties.present"/>
+
+    <property file="${build.property.file}"/>
+  
+    <path id="xmlbean.class.path">
+        <!-- xml beans -->
+        <pathelement location="${xmlbean.lib.dir}/jsr173_1.0_api.jar"/>
+        <pathelement location="${xmlbean.lib.dir}/resolver.jar"/>
+        <pathelement location="${xmlbean.lib.dir}/xbean.jar"/>
+        <pathelement location="${xmlbean.lib.dir}/xbean_xpath.jar"/>
+        <pathelement location="${xmlbean.lib.dir}/xmlpublic.jar"/>
+    </path>
+    <target name="xml-bean">
+        <taskdef name="xmlbean"
+            classname="org.apache.xmlbeans.impl.tool.XMLBean">
+            <classpath refid="xmlbean.class.path"/>
+        </taskdef>
+    	
+        <xmlbean
+            memoryMaximumSize="512M"
+            download="true"
+            failonerror="false"
+            destfile="${dist}/dgschema.jar">
+            <classpath refid="xmlbean.class.path"/>
+            <!--fileset dir="${config}">
+                <include name="serviceschema.xsdconfig"/>
+            </fileset-->
+            <fileset dir="${schema}">
+               <include name="*.xsd"/>
+            </fileset>
+        </xmlbean>
+    </target>    
+</project>

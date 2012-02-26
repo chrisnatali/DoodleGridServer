@@ -1,0 +1,32 @@
+;; Object javascript/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "javascript/"
+  :tables (list 
+   (semanticdb-table "DGMgr.js"
+    :major-mode 'java-mode
+    :tags 'nil
+    :file "DGMgr.js"
+    )
+   (semanticdb-table "DG.js"
+    :major-mode 'java-mode
+    :tags 'nil
+    :file "DG.js"
+    :pointmax 7694
+    )
+   (semanticdb-table "Common.js"
+    :major-mode 'java-mode
+    :tags 'nil
+    :file "Common.js"
+    :pointmax 508
+    )
+   (semanticdb-table "HTTP.js"
+    :major-mode 'java-mode
+    :tags 'nil
+    :file "HTTP.js"
+    :pointmax 10688
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre3"
+  :semanticdb-version "2.0pre3"
+  )
